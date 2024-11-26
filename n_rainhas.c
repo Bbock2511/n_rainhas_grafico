@@ -92,6 +92,18 @@ bool trata_mouse(int n, char tab[], ponto_t pos_tabuleiro, float tamanho_casa, p
     return false;
 }
 
+// Função para desenhar o cursor do mouse
+void desenha_mouse() {
+    rato_t rato = j_rato();  // Obtém o estado atual do mouse
+
+    // Cor do cursor
+    cor_t cor_cursor = {1.0, 0.0, 0.0, 1.0}; // Vermelho
+    float tamanho_cursor = 5.0; // Raio do cursor
+
+    // Desenha um pequeno círculo na posição do mouse
+    j_circulo((circulo_t){{rato.posicao.x, rato.posicao.y}, tamanho_cursor}, 0, cor_cursor, cor_cursor);
+}
+
 // Parte IV: Programa principal
 int main() {
     int n;
@@ -113,6 +125,8 @@ int main() {
         if (trata_mouse(n, tab, (ponto_t){tamanho_janela.largura / (n + 2), tamanho_janela.altura / (n + 2)}, tamanho_janela.largura / (n + 2), &casa_destacada)) {
             break;
         }
+
+        desenha_mouse();
 
         if (n_rainhas(n, tab) == 2) {
             desenha_tabuleiro(n, tab, -1, -1);
